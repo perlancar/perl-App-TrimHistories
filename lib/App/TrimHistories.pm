@@ -27,7 +27,6 @@ $SPEC{trim_histories} = {
         sets => {
             schema => ['array*', of=>'int*', min_len=>2],
             default => [86400, 7, 7*86400, 4, 30*86400, 6],
-            req => 1,
         },
         discard_old_histories => {
             schema => 'bool*',
@@ -37,12 +36,6 @@ $SPEC{trim_histories} = {
         },
     },
     examples => [
-        {
-            summary => 'By default only keeps 7 daily, 4 weekly, and 6 monthly histories. Will delete 2017-01-01.dat',
-            args => {files=>[qw/2017-06-14.dat 2017-06-13.dat 2017-06-12.dat 2017-06-11.dat 2017-06-10.dat 2017-06-09.dat 2017-06-08.dat 2017-06-07.dat 2017-01-01.dat/]},
-            test => 0,
-            'x.doc.show_result' => 0,
-        },
     ],
     features => {
         dry_run => 1,
@@ -54,7 +47,7 @@ sub trim_histories {
 
     my %args = @_;
 
-    my $parser = Date::Extract::PERLANCAR->new(returns => 'epoch');
+    my $parser = Date::Extract::PERLANCAR->new(format => 'epoch');
 
     my $files = $args{files};
     my $histories = [];
