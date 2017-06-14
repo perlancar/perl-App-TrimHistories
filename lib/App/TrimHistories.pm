@@ -132,7 +132,8 @@ sub trim_histories {
     );
 
     for my $f (@{ $res->{discard} }) {
-        $log->infof("%sDeleting %s ...", $args{-dry_run} ? "[DRY-RUN] " : "", $f);
+        my $meth = $args{-dry_run} ? "warnf" : "infof";
+        $log->$meth("%sDeleting %s ...", $args{-dry_run} ? "[DRY-RUN] " : "", $f);
         unless ($args{-dry_run}) {
             unlink $f or warn "Can't delete $f: $!\n";
         }
