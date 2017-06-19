@@ -132,7 +132,7 @@ sub trim_histories {
     );
 
     for my $f (@{ $res->{discard} }) {
-        my @log_args = "%sDeleting %s ...", $args{-dry_run} ? "[DRY-RUN] " : "", $f;
+        my @log_args = ("%sDeleting %s ...", $args{-dry_run} ? "[DRY-RUN] " : "", $f);
         if ($args{-dry_run}) {
             log_warn @log_args;
         } else {
