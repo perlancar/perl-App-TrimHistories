@@ -6,7 +6,7 @@ package App::TrimHistories;
 use 5.010001;
 use strict;
 use warnings;
-use Log::Any '$log';
+use Log::ger;
 
 our %SPEC;
 
@@ -132,8 +132,12 @@ sub trim_histories {
     );
 
     for my $f (@{ $res->{discard} }) {
-        my $meth = $args{-dry_run} ? "warnf" : "infof";
-        $log->$meth("%sDeleting %s ...", $args{-dry_run} ? "[DRY-RUN] " : "", $f);
+        my @log_args = "%sDeleting %s ...", $args{-dry_run} ? "[DRY-RUN] " : "", $f;
+        if ($args{-dry_run}) {
+            log_warn @log_args;
+        } else {
+            log_info @log_args;
+        }
         unless ($args{-dry_run}) {
             unlink $f or warn "Can't delete $f: $!\n";
         }
