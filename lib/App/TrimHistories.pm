@@ -1,6 +1,8 @@
 package App::TrimHistories;
 
+# AUTHORITY
 # DATE
+# DIST
 # VERSION
 
 use 5.010001;
@@ -34,7 +36,7 @@ _
         },
         sets => {
             summary => 'History sets to keep',
-            schema => ['array*', of=>'str*', min_len=>2, 'x.perl.coerce_rules' => ['str_comma_sep']],
+            schema => ['array*', of=>'str*', min_len=>2, 'x.perl.coerce_rules' => ['From_str::comma_sep']],
             default => [daily => 7, weekly => 4, monthly => 6],
             description => <<'_',
 
